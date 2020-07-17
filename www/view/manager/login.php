@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>后台管理-登陆</title>
+    <title>后台管理-登录</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../static/ui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css" media="all">
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -58,24 +58,15 @@
         </div>
     </div>
 </div>
-<script src="../static/ui/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-<script src="../static/ui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script src="../static/ui/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form'], function () {
-        var form = layui.form,
-            layer = layui.layer;
+        var form = layui.form, $=layui.jquery, layer = layui.layer;
 
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
 
-        // 粒子线条背景
-        $(document).ready(function(){
-            $('.layui-container').particleground({
-                dotColor:'#7ec7fd',
-                lineColor:'#7ec7fd'
-            });
-        });
+
 
         // 进行登录操作
         form.on('submit(login)', function (data) {

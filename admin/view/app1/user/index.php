@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../static/ui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css"  media="all">
     <link rel="stylesheet" href="../static/ui/css/public.css" media="all">
 </head>
 <body>
@@ -22,12 +22,6 @@
                             <label class="layui-form-label">用户名</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="loginName" class="layui-input">
-                            </div>
-                        </div>
-						<div class="layui-inline">
-                            <label class="layui-form-label">注册邮箱</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -54,7 +48,7 @@
 
     </div>
 </div>
-<script src="../static/ui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
 <script>
 layui.use(['form', 'table'], function () {
 	var $ = layui.jquery,
@@ -65,7 +59,11 @@ layui.use(['form', 'table'], function () {
 		elem: '#currentTableId',
 		url: '?c=app1_user&a=page',
 		toolbar: '#toolbarDemo',
-		defaultToolbar: ['filter', 'exports', 'print'],
+		defaultToolbar: ['filter', 'exports', 'print', {
+			title: '提示',
+			layEvent: 'LAYTABLE_TIPS',
+			icon: 'layui-icon-tips'
+		}],
 		cols: [[
 			{type: "checkbox", width: 50},
 			{field: 'loginName', width: 100, title: '用户名', sort: false},
@@ -76,8 +74,7 @@ layui.use(['form', 'table'], function () {
 			{field: 'province', width: 100, title: '省份', sort: false},
 			{field: 'city', width: 100, title: '城市', sort: false},
 			{field: 'mobile', width: 100, title: '城市', sort: false},
-			{field: 'email', width: 100, title: '注册邮箱', sort: false} ,
-			{title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+			{field: 'email', width: 100, title: '注册邮箱', sort: false} 
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,
@@ -172,6 +169,5 @@ layui.use(['form', 'table'], function () {
 
 });
 </script>
-
 </body>
 </html>

@@ -22,7 +22,7 @@ spl_autoload_register(function($class){
 		include($fn);
 	}
 });
-
+define('CDN','../static/ui/lib');//静态cdn
 /**
  * 配置参数监护器
  *

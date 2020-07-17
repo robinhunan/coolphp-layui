@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../static/ui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css"  media="all">
     <link rel="stylesheet" href="../static/ui/css/public.css" media="all">
 </head>
 <body>
@@ -17,7 +17,7 @@
         </div>
     </div>
 </div>
-<script src="../static/ui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
 <script>
 layui.use(['form'], function () {
 	var form = layui.form,
