@@ -61,6 +61,7 @@ layui.use(['form', 'table'], function () {
 		cols: [[
 			{type: "checkbox", width: 50},
 			__tableTitle__ 
+			,{title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,

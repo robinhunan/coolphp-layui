@@ -14,7 +14,7 @@ class file {
      * @return boolean 
      */
 
-    public static function save($filename, $data, $flags = null) {
+    public static function save($filename, $data, $flags = 0) {
         is_dir(dirname($filename)) || mkdir(dirname($filename), 0755, true);
         return file_put_contents($filename, $data, $flags);
     }
