@@ -28,3 +28,11 @@ layui.config({
     wangEditor: 'wangEditor/wangEditor', // wangEditor富文本扩展
     layarea: 'layarea/layarea', //  省市县区三级联动下拉选择器
 });
+var cz = {
+	load: function(url,data,func,dataType){
+		var load=layui.layer.load(2);
+		layui.jquery.post(url,data,func,dataType).always(function(){
+			layui.layer.close(load);
+		});
+	}
+};

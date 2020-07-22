@@ -17,7 +17,7 @@ if(!$info[2]){
 }
 
 $dsnName = $_GET['dsn']?:'web';
-$table =$_GET['table']?:'manager'; //默认表名
+$table =$_GET['table']?:''; //默认表名
 $db = pool::db($dsnName);
 
 if('generate'==$_GET['act']){
@@ -66,10 +66,10 @@ if('generate'==$_GET['act']){
                         </div>',$_POST['field'][$m],$m);
 				
 			}
-			$s=[];
+			$tableTitle='';
 			foreach ($_POST[$v] as $k2=>$v2){
-				$s[]=sprintf("{field: '%s', width: 100, title: '%s', sort: false}",$k2,$_POST['field'][$k2]?:$k2);
-                $tableTitle=implode(",\n\t\t\t",$s);
+				$tableTitle.=sprintf("
+			,{field: '%s', title: '%s', sort: false}",$k2,$_POST['field'][$k2]?:$k2);
             }
             $str = str_replace(
                      array('__table__','__ds_table__','__search__','__field_name__','__fields__','__tableTitle__'),
@@ -111,11 +111,13 @@ if('generate'==$_GET['act']){
 foreach ( $db->query('show tables') as $row) {
     $tables[] = $row[0];
 }
+//sort($tables);
 $table = in_array($table,$tables) ? $table : $tables[0];
 
 /** 显示一个表中的所有字段 */
 foreach ( $db->query('show full COLUMNS from '.$table) as $row) {
     $rows[] = $row;
 }
+//sort($tables);
 include APP_PATH.'view/index.php';
 

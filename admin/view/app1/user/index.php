@@ -24,6 +24,18 @@
                                 <input type="text" name="loginName" class="layui-input">
                             </div>
                         </div>
+						<div class="layui-inline">
+                            <label class="layui-form-label">昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="nickName" class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-inline">
+                            <label class="layui-form-label">注册邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" class="layui-input">
+                            </div>
+                        </div>
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
@@ -48,7 +60,8 @@
 
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js"></script>
+<script src="../static/ui/js/lay-config.js"></script>
 <script>
 layui.use(['form', 'table'], function () {
 	var $ = layui.jquery,
@@ -65,16 +78,14 @@ layui.use(['form', 'table'], function () {
 			icon: 'layui-icon-tips'
 		}],
 		cols: [[
-			{type: "checkbox", width: 50},
-			{field: 'loginName', width: 100, title: '用户名', sort: false},
-			{field: 'loginPass', width: 100, title: '密码', sort: false},
-			{field: 'nickName', width: 100, title: '昵称', sort: false},
-			{field: 'sex', width: 100, title: '性别', sort: false},
-			{field: 'birthday', width: 100, title: '生日', sort: false},
-			{field: 'province', width: 100, title: '省份', sort: false},
-			{field: 'city', width: 100, title: '城市', sort: false},
-			{field: 'mobile', width: 100, title: '城市', sort: false},
-			{field: 'email', width: 100, title: '注册邮箱', sort: false} 
+			{type: "checkbox", width: 50}
+			,{field: 'id', title: 'id', sort: false}
+			,{field: 'loginName', title: '用户名', sort: false}
+			,{field: 'nickName', title: '昵称', sort: false}
+			,{field: 'sex', title: '性别', sort: false}
+			,{field: 'birthday', title: '生日', sort: false}
+			,{field: 'email', title: '注册邮箱', sort: false} 
+			,{title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,
@@ -86,7 +97,6 @@ layui.use(['form', 'table'], function () {
 	form.on('submit(data-search-btn)', function (data) {
 		var result = JSON.stringify(data.field);
 		//执行搜索重载
-		layer.msg('查询中，请稍后...',{icon:16,time:800,shade:0.2});
 		table.reload('currentTableId', {
 			page: {
 				curr: 1
@@ -95,7 +105,6 @@ layui.use(['form', 'table'], function () {
 				key: result
 			}
 		}, 'data');
-
 		return false;
 	});
 
@@ -127,9 +136,8 @@ layui.use(['form', 'table'], function () {
 		   for(var i=0; i<data.length; i++){
 			  ids.push(data[i]['id']);
 		   }
-			layer.msg('请稍后...',{icon:16,time:800,shade:0.2});
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=app1_user&a=delete',{"id":ids.join(",")},function(ret){
+				cz.load('?c=app1_user&a=delete',{"id":ids.join(",")},function(ret){
 					table.reload('currentTableId',{},'data');
 					layer.msg('删除成功');
 				});
@@ -158,7 +166,7 @@ layui.use(['form', 'table'], function () {
 			return false;
 		} else if (obj.event === 'delete') {
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=app1_user&a=delete',data,function(ret){
+				cz.load('?c=app1_user&a=delete',data,function(ret){
 					obj.del();
 					layer.msg('删除成功');
 				});

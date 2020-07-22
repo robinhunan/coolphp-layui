@@ -17,7 +17,8 @@
         </div>
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js"></script>
+<script src="../static/ui/js/lay-config.js"></script>
 <script>
 layui.use(['form'], function () {
 	var form = layui.form,
@@ -26,8 +27,7 @@ layui.use(['form'], function () {
 
 	//监听提交
 	form.on('submit(saveBtn)', function (data) {
-		layer.msg('请稍后...',{icon:16,time:800,shade:0.2});
-		$.post("?c=__table__&a=update&id=<?=$id?>",data.field,function (ret){
+		cz.load("?c=__table__&a=update&id=<?=$id?>",data.field,function (ret){
 			 if(ret.code>0){
 				 layer.msg('修改成功',function(){parent.location.reload();});
 			 } else {

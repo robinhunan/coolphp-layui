@@ -42,7 +42,8 @@
 
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.js"></script>
+<script src="../static/ui/js/lay-config.js"></script>
 <script>
 layui.use(['form', 'table'], function () {
 	var $ = layui.jquery,
@@ -59,8 +60,7 @@ layui.use(['form', 'table'], function () {
 			icon: 'layui-icon-tips'
 		}],
 		cols: [[
-			{type: "checkbox", width: 50},
-			__tableTitle__ 
+			{type: "checkbox", width: 50}__tableTitle__ 
 			,{title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
@@ -73,7 +73,6 @@ layui.use(['form', 'table'], function () {
 	form.on('submit(data-search-btn)', function (data) {
 		var result = JSON.stringify(data.field);
 		//执行搜索重载
-		layer.msg('查询中，请稍后...',{icon:16,time:800,shade:0.2});
 		table.reload('currentTableId', {
 			page: {
 				curr: 1
@@ -82,7 +81,6 @@ layui.use(['form', 'table'], function () {
 				key: result
 			}
 		}, 'data');
-
 		return false;
 	});
 
@@ -114,9 +112,8 @@ layui.use(['form', 'table'], function () {
 		   for(var i=0; i<data.length; i++){
 			  ids.push(data[i]['id']);
 		   }
-			layer.msg('请稍后...',{icon:16,time:800,shade:0.2});
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=__table__&a=delete',{"id":ids.join(",")},function(ret){
+				cz.load('?c=__table__&a=delete',{"id":ids.join(",")},function(ret){
 					table.reload('currentTableId',{},'data');
 					layer.msg('删除成功');
 				});
@@ -145,7 +142,7 @@ layui.use(['form', 'table'], function () {
 			return false;
 		} else if (obj.event === 'delete') {
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=__table__&a=delete',data,function(ret){
+				cz.load('?c=__table__&a=delete',data,function(ret){
 					obj.del();
 					layer.msg('删除成功');
 				});

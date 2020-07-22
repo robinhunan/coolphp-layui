@@ -24,10 +24,8 @@ function changeTable(table){
     请选择表名:
      <select name="table" onchange="changeTable(this.value)" >
         <?php foreach ($tables as $v) {
-			if($v!='manager'){
-				$sel = $v==$table ? ' selected' :'';
+				$sel = $v===$table ? ' selected' :'';
 				echo  "<option value='$v' $sel>$v</option>\n";
-			}
         }
         ?>
      </select>
