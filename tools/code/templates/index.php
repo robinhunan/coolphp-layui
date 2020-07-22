@@ -28,16 +28,16 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"> 添加 </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
         </script>
 
     </div>
@@ -54,11 +54,7 @@ layui.use(['form', 'table'], function () {
 		elem: '#currentTableId',
 		url: '?c=__table__&a=page',
 		toolbar: '#toolbarDemo',
-		defaultToolbar: ['filter', 'exports', 'print', {
-			title: '提示',
-			layEvent: 'LAYTABLE_TIPS',
-			icon: 'layui-icon-tips'
-		}],
+		defaultToolbar: ['filter', 'exports', 'print'],
 		cols: [[
 			{type: "checkbox", width: 50}__tableTitle__ 
 			,{title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
