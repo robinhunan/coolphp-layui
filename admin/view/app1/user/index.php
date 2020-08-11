@@ -5,9 +5,9 @@
     <title>app1_user 列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css"  media="all">
-    <link rel="stylesheet" href="../static/ui/css/public.css" media="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css">
+    <link rel="stylesheet" href="../static/ui/css/public.css">
 </head>
 <body>
 <div class="layuimini-container">
@@ -44,16 +44,16 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
+        <script type="text/html" id="btna">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
                 <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+        <table class="layui-hide" id="tbl" lay-filter="tblFilter"></table>
 
-        <script type="text/html" id="currentTableBar">
+        <script type="text/html" id="btnu">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
@@ -69,14 +69,9 @@ layui.use(['form', 'table'], function () {
 		table = layui.table;
 
 	table.render({
-		elem: '#currentTableId',
+		elem: '#tbl',
 		url: '?c=app1_user&a=page',
-		toolbar: '#toolbarDemo',
-		defaultToolbar: ['filter', 'exports', 'print', {
-			title: '提示',
-			layEvent: 'LAYTABLE_TIPS',
-			icon: 'layui-icon-tips'
-		}],
+		toolbar: '#btna',
 		cols: [[
 			{type: "checkbox", width: 50}
 			,{field: 'id', title: 'id', sort: false}
@@ -85,7 +80,7 @@ layui.use(['form', 'table'], function () {
 			,{field: 'sex', title: '性别', sort: false}
 			,{field: 'birthday', title: '生日', sort: false}
 			,{field: 'email', title: '注册邮箱', sort: false} 
-			,{title: '操作', width: 150, toolbar: '#currentTableBar', align: "center"}
+			,{title: '操作', width: 150, toolbar: '#btnu', align: "center"}
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,
@@ -97,21 +92,21 @@ layui.use(['form', 'table'], function () {
 	form.on('submit(data-search-btn)', function (data) {
 		var result = JSON.stringify(data.field);
 		//执行搜索重载
-		table.reload('currentTableId', {
+		table.reload('tbl', {
 			page: {
 				curr: 1
 			}
 			, where: {
 				key: result
 			}
-		}, 'data');
+		});
 		return false;
 	});
 
 	/**
 	 * toolbar监听事件
 	 */
-	table.on('toolbar(currentTableFilter)', function (obj) {
+	table.on('toolbar(tblFilter)', function (obj) {
 		if (obj.event === 'add') {  // 监听添加操作
 			var index = layer.open({
 				title: '添加用户',
@@ -126,7 +121,7 @@ layui.use(['form', 'table'], function () {
 				layer.full(index);
 			});
 		} else if (obj.event === 'delete') {  // 监听删除操作
-			var checkStatus = table.checkStatus('currentTableId')
+			var checkStatus = table.checkStatus('tbl')
 				, data = checkStatus.data;
 			if(data.length<1){
 				layer.msg('请先选择');
@@ -138,7 +133,7 @@ layui.use(['form', 'table'], function () {
 		   }
 			layer.confirm('真的删除行么', function (index) {
 				cz.load('?c=app1_user&a=delete',{"id":ids.join(",")},function(ret){
-					table.reload('currentTableId',{},'data');
+					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
 				layer.close(index);
@@ -147,11 +142,11 @@ layui.use(['form', 'table'], function () {
 	});
 
 	//监听表格复选框选择
-	table.on('checkbox(currentTableFilter)', function (obj) {
+	table.on('checkbox(tblFilter)', function (obj) {
 		console.log(obj)
 	});
 
-	table.on('tool(currentTableFilter)', function (obj) {
+	table.on('tool(tblFilter)', function (obj) {
 		var data = obj.data;
 		if (obj.event === 'edit') {
 			var index = layer.open({
@@ -167,7 +162,7 @@ layui.use(['form', 'table'], function () {
 		} else if (obj.event === 'delete') {
 			layer.confirm('真的删除行么', function (index) {
 				cz.load('?c=app1_user&a=delete',data,function(ret){
-					obj.del();
+					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
 				layer.close(index);

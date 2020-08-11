@@ -20,7 +20,7 @@
 <script src="<?=CDN?>/layui/2.5.6/layui.js"></script>
 <script src="../static/ui/js/lay-config.js"></script>
 <script>
-layui.use(['form'], function () {
+layui.use(['form','table'], function () {
 	var form = layui.form,
 		layer = layui.layer,
 		$ = layui.$;

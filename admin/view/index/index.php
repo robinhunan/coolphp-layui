@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="../static/ui/css/layuimini.css?v=2.0.4.2" media="all">
     <link rel="stylesheet" href="../static/ui/css/themes/default.css" media="all">
     <link rel="stylesheet" href="<?=CDN?>/font-awesome/4.7.0/css/font-awesome.min.css" media="all">
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <style id="layuimini-bg-color">
     </style>
 </head>
@@ -122,7 +118,7 @@
     </div>
 </div>
 <script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
-<script src="../static/ui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<script src="../static/ui/js/lay-config.js" charset="utf-8"></script>
 <script>
     layui.use(['jquery', 'layer', 'miniAdmin','miniTongji'], function () {
         var $ = layui.jquery,
@@ -133,11 +129,11 @@
         var options = {
             iniUrl: "?c=index&a=initMenu",    // 初始化接口
             clearUrl: "?c=index&a=clearCache", // 缓存清理接口
-            urlHashLocation: true,      // 是否打开hash定位
+            urlHashLocation: false,      // 是否打开hash定位
             bgColorDefault: false,      // 主题默认配置
             multiModule: true,          // 是否开启多模块
-            menuChildOpen: false,       // 是否默认展开菜单
-            loadingTime: 0,             // 初始化加载时间
+            menuChildOpen: true,       // 是否默认展开菜单
+            loadingTime: 5,             // 初始化加载时间
             pageAnim: true,             // iframe窗口动画
             maxTabNum: 10,              // 最大的tab打开数量
         };

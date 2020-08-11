@@ -19,7 +19,7 @@ class c_index{
 		echo '{
   "homeInfo": {
     "title": "首页",
-    "href": "page/welcome-1.html?t=1"
+    "href": "about:blank"
   },
   "logoInfo": {
     "title": "后台管理系统",

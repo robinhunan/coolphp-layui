@@ -520,6 +520,7 @@
 /**初始化加载层*/
 .layuimini-loader {
     position: fixed;
+    display:none;
     top: 0;
     left: 0;
     width: 100%;
