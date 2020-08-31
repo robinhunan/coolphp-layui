@@ -34,9 +34,9 @@ class config
 	const KEY="i5%e()|',\\"; 
 	//PDO链接参数
 	static  $web = array (
-		'dsn'=>'mysql:host=3.youxr.com;port=3306;dbname=coolphp',
-		'user'=>'yubing',
-		'pass'=>'123qwe',
+		'dsn'=>'mysql:host=localhost;port=3306;dbname=coolphp',
+		'user'=>'root',
+		'pass'=>'',
 		'options'=>array(
 		    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES "UTF8"',
 		    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
