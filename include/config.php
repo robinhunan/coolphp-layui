@@ -22,7 +22,7 @@ spl_autoload_register(function($class){
 		include($fn);
 	}
 });
-define('CDN','../static/ui/lib');//静态cdn
+define('CDN','../static');//静态cdn
 /**
  * 配置参数监护器
  *
@@ -34,13 +34,13 @@ class config
 	const KEY="i5%e()|',\\"; 
 	//PDO链接参数
 	static  $web = array (
-		'dsn'=>'mysql:host=localhost;port=3306;dbname=coolphp',
-		'user'=>'root',
-		'pass'=>'',
+		'dsn'=>'mysql:host=3.youxr.com;port=3306;dbname=coolphp',
+		'user'=>'yubing',
+		'pass'=>'123qwe',
 		'options'=>array(
 		    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES "UTF8"',
 		    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	      	    PDO::ATTR_TIMEOUT => 5,
+	      	PDO::ATTR_TIMEOUT => 5,
 		),
 	);
 }

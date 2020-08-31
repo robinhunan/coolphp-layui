@@ -1,61 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>manager 列表</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css">
-    <link rel="stylesheet" href="../static/ui/css/public.css">
+<meta charset="utf-8">
+<title>manager 列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css" media="all">
+<link rel="stylesheet" href="../static/style/admin.css" media="all">
 </head>
 <body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
-        <fieldset class="table-search-fieldset">
-            <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
+<div class="layui-fluid">
+    <div class="layui-card">
+		<div class="layui-card-header">搜索信息</div>
+		<div style="margin: 10px">
+			<form class="layui-form layui-form-pane" action="">
+				<div class="layui-form-item">
 						<div class="layui-inline">
                             <label class="layui-form-label">用户名</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="userName" class="layui-input">
                             </div>
                         </div>
-						<div class="layui-inline">
-                            <label class="layui-form-label">密码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="userPass" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
+					<div class="layui-inline">
+						<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+					</div>
+				</div>
+			</form>
+		</div>
 
         <script type="text/html" id="btna">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add"> 添加 </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
         <table class="layui-hide" id="tbl" lay-filter="tblFilter"></table>
 
         <script type="text/html" id="btnu">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
         </script>
-
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.all.js"></script>
 <script>
-layui.use(['form', 'table'], function () {
+ layui.config({
+    base: '../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index'], function(){
 	var $ = layui.jquery,
 		form = layui.form,
 		table = layui.table;
@@ -66,22 +61,20 @@ layui.use(['form', 'table'], function () {
 		toolbar: '#btna',
 		defaultToolbar: ['filter', 'exports', 'print'],
 		cols: [[
-			{type: "checkbox", width: 50},
-			{field: 'userName', width: 100, title: '用户名', sort: false},
-			{field: 'userPass', width: 100, title: '密码', sort: false} ,
-			{title: '操作', minWidth: 150, toolbar: '#btnu', align: "center"}
+			{type: "checkbox", width: 50}
+			,{field: 'userName', title: '用户名', sort: false}
+			,{field: 'userPass', title: '密码', sort: false} 
+			,{title: '操作', width: 150, toolbar: '#btnu', align: "center"}
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,
-		page: true,
-		skin: 'line'
+		page: true
 	});
 
 	// 监听搜索操作
 	form.on('submit(data-search-btn)', function (data) {
 		var result = JSON.stringify(data.field);
 		//执行搜索重载
-		layer.msg('查询中，请稍后...',{icon:16,time:800,shade:0.2});
 		table.reload('tbl', {
 			page: {
 				curr: 1
@@ -90,7 +83,6 @@ layui.use(['form', 'table'], function () {
 				key: result
 			}
 		});
-
 		return false;
 	});
 
@@ -122,9 +114,8 @@ layui.use(['form', 'table'], function () {
 		   for(var i=0; i<data.length; i++){
 			  ids.push(data[i]['id']);
 		   }
-			layer.msg('请稍后...',{icon:16,time:800,shade:0.2});
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=manager&a=delete',{"id":ids.join(",")},function(ret){
+				cz.load('?c=manager&a=delete',{"id":ids.join(",")},function(ret){
 					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
@@ -153,7 +144,7 @@ layui.use(['form', 'table'], function () {
 			return false;
 		} else if (obj.event === 'delete') {
 			layer.confirm('真的删除行么', function (index) {
-				$.post('?c=manager&a=delete',data,function(ret){
+				cz.load('?c=manager&a=delete',data,function(ret){
 					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
@@ -164,6 +155,5 @@ layui.use(['form', 'table'], function () {
 
 });
 </script>
-
 </body>
 </html>

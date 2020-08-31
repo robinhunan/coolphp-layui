@@ -16,48 +16,51 @@ function changeTable(table){
 }
 </script>
 <body>
-<div style="max-width: 990px;margin: 0 auto;">
-  <div class="navi">
-    <p><a href="?dsn=<?=$dsnName?>&table=<?=$table?>"><h2>代码生成</h2></a> </p>
-  </div>
-  <div class="trh2">
-    请选择表名:
-     <select name="table" onchange="changeTable(this.value)" >
-        <?php foreach ($tables as $v) {
+<div>	
+	<div class="layui-container">		
+	  <div class="navi" style="padding:20px">
+		<p><h2>代码生成</h2></p>
+	  </div>
+	  <div class="trh2">
+		请选择表名:
+		 <select name="table" onchange="changeTable(this.value)" >
+			<?php foreach ($tables as $v) {
 				$sel = $v===$table ? ' selected' :'';
 				echo  "<option value='$v' $sel>$v</option>\n";
-        }
-        ?>
-     </select>
-  </div>
-  <form action="" method="post">
-    <table class="layui-table" >
-      <thead>
-        <td width='20%' align="left" >字段名 </td>
-        <td width="24%">中文字段名</td>
-        <td><input type="checkbox" name="checkAll" data-id="add" />添加</td>
-        <td><input type="checkbox" name="checkAll" data-id="edit" />修改</td>
-        <td><input type="checkbox" name="checkAll" data-id="search" />搜索</td>
-        <td><input type="checkbox" name="checkAll" data-id="index" />列表</td>
-      </thead>
-      <?php foreach((array)$rows AS $k=>$v){
-          $checked = $k!=0 ? 'checked="checked"' : '';
-      ?>
-      <tr>
-        <td ><?=$v['Field']?></td>
-        <td>
-         <input type="text" name="field[<?=$v['Field']?>]" value="<?php echo $v['Comment']?$v['Comment']:$v['Field']?>" />
-         </td>
-        <td ><input type="checkbox" <?=$checked?> name="add[<?=$v['Field']?>]" /></td>
-        <td ><input type="checkbox" <?=$checked?> name="edit[<?=$v['Field']?>]" /></td>
-        <td ><input type="checkbox" <?=$checked?> name="search[<?=$v['Field']?>]" /></td>
-        <td ><input type="checkbox" <?=$checked?> name="index[<?=$v['Field']?>]" /></td>
-      </tr>
-      <?php }?>
-       <tr> <td colspan=6 align="center"> <input  type="submit" class="layui-btn" value=" 确 定 "  /></td></tr>
-    </table>
-  </form>
+			}
+			?>
+		 </select>
+	  </div>
+	  <form action="" method="post">
+		<table class="layui-table" >
+		  <thead>
+			<td width='20%' align="left" >字段名 </td>
+			<td width="24%">中文字段名</td>
+			<td><input type="checkbox" name="checkAll" data-id="add" />添加</td>
+			<td><input type="checkbox" name="checkAll" data-id="edit" />修改</td>
+			<td><input type="checkbox" name="checkAll" data-id="search" />搜索</td>
+			<td><input type="checkbox" name="checkAll" data-id="index" />列表</td>
+		  </thead>
+		  <?php foreach((array)$rows AS $k=>$v){
+			  $checked = $k!=0 ? 'checked="checked"' : '';
+		  ?>
+		  <tr>
+			<td ><?=$v['Field']?></td>
+			<td>
+			 <input type="text" name="field[<?=$v['Field']?>]" value="<?php echo $v['Comment']?$v['Comment']:$v['Field']?>" />
+			 </td>
+			<td ><input type="checkbox" <?=$checked?> name="add[<?=$v['Field']?>]" /></td>
+			<td ><input type="checkbox" <?=$checked?> name="edit[<?=$v['Field']?>]" /></td>
+			<td ><input type="checkbox" <?=$checked?> name="search[<?=$v['Field']?>]" /></td>
+			<td ><input type="checkbox" <?=$checked?> name="index[<?=$v['Field']?>]" /></td>
+		  </tr>
+		  <?php }?>
+		   <tr> <td colspan=6 align="center"> <input  type="submit" class="layui-btn" value=" 确 定 "  /></td></tr>
+		</table>
+	  </form>
+	</div>
 </div>
+</body>
 <script>
 layui.use(['form'], function(){
 	var layer = layui.layer, $=layui.jquery;
@@ -80,5 +83,4 @@ layui.use(['form'], function(){
 	})
 })
 </script>
-</body>
 </html>

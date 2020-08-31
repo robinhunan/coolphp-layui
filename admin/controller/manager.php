@@ -89,9 +89,5 @@ class c_manager{
 		$res=['code'=>0,'msg'=>'','count'=>$cnt,'data'=>$rows];
 		msg::json($res);		
 	}
-	
-	function logout(){
-		setcookie('_mkey',null,0,'/');
-		echo '<script>location.href="../www/?c=manager"</script>';
-	}
+
 }

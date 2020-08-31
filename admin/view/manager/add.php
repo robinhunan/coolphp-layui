@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>add</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css"  media="all">
-    <link rel="stylesheet" href="../static/ui/css/public.css" media="all">
+<meta charset="utf-8">
+<title>add</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css" media="all">
+<link rel="stylesheet" href="../static/style/admin.css" media="all">
 </head>
 <body>
-<div class="layui-form layuimini-form">
+<div class="layui-form">
 				<div class="layui-form-item">						 
 					<label class="layui-form-label required">用户名</label>
 					<div class="layui-input-block">
@@ -29,17 +29,20 @@
         </div>
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js" charset="utf-8"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.all.js"></script>
 <script>
-layui.use(['form'], function () {
+ layui.config({
+    base: '../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index'], function () {
 	var form = layui.form,
 		layer = layui.layer,
 		$ = layui.$;
 
 	//监听提交
 	form.on('submit(saveBtn)', function (data) {
-		layer.msg('请稍后...',{icon:16,time:800,shade:0.2});
-		$.post("?c=manager&a=insert",data.field,function (ret){
+		cz.load("?c=manager&a=insert",data.field,function (ret){
 			 if(ret.code>0){
 				 layer.msg('增加成功',function(){parent.location.reload();});
 			 } else {
