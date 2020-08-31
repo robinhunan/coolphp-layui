@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>__table__ 列表</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css">
-    <link rel="stylesheet" href="../static/ui/css/public.css">
+<meta charset="utf-8">
+<title>__table__ 列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="<?=CDN?>/layui/2.5.6/css/layui.css" media="all">
+<link rel="stylesheet" href="../static/style/admin.css" media="all">
 </head>
 <body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
-
-        <fieldset class="table-search-fieldset">
-            <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">__search__
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
+<div class="layui-fluid">
+    <div class="layui-card">
+		<div class="layui-card-header">搜索信息</div>
+		<div style="margin: 10px">
+			<form class="layui-form layui-form-pane" action="">
+				<div class="layui-form-item">__search__
+					<div class="layui-inline">
+						<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+					</div>
+				</div>
+			</form>
+		</div>
 
         <script type="text/html" id="btna">
             <div class="layui-btn-container">
@@ -39,13 +36,15 @@
             <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
         </script>
-
     </div>
 </div>
-<script src="<?=CDN?>/layui/2.5.6/layui.js"></script>
-<script src="../static/ui/js/lay-config.js"></script>
+<script src="<?=CDN?>/layui/2.5.6/layui.all.js"></script>
 <script>
-layui.use(['form', 'table'], function () {
+ layui.config({
+    base: '../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index'], function(){
 	var $ = layui.jquery,
 		form = layui.form,
 		table = layui.table;
@@ -61,8 +60,7 @@ layui.use(['form', 'table'], function () {
 		]],
 		limits: [10, 15, 20, 25, 50, 100],
 		limit: 15,
-		page: true,
-		skin: 'line'
+		page: true
 	});
 
 	// 监听搜索操作

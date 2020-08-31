@@ -22,7 +22,7 @@ spl_autoload_register(function($class){
 		include($fn);
 	}
 });
-define('CDN','../static/ui/lib');//静态cdn
+define('CDN','../static');//静态cdn
 /**
  * 配置参数监护器
  *
@@ -40,7 +40,7 @@ class config
 		'options'=>array(
 		    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES "UTF8"',
 		    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-	      	    PDO::ATTR_TIMEOUT => 5,
+	      	PDO::ATTR_TIMEOUT => 5,
 		),
 	);
 }
