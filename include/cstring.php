@@ -123,6 +123,10 @@ class cstring {
         }
         return $output;
     }
+	//字符串安全处理,参数是字符串或者数组
+	public static function safe($string){
+		return is_array($string) ? array_map(array(__CLASS__,'safe'), $string) :  strtr($string,['"'=>'&quot;','\''=>' &#039; ',';'=>'；']);
+	}
     /**
 	*  将html实体代码，转换成utf-8编码
 	*/
@@ -130,25 +134,20 @@ class cstring {
 	    return json_decode(preg_replace_callback('/&#(\d{5});/', create_function('$dec', 'return \'\\u\'.dechex($dec[1]);'), '"'.$str.'"'));
 	}
 	//字符串安全处理
-	public static function safe($string){
+	public static function filter($string){
 	    return is_array($string) ? array_map(array(__CLASS__,'safe'), $string) : str_replace(array( '&', '"', "'", '<', '>', ';'), '', $string);
 	}
-	/**
-	* 过滤不安全字符
-	*/
-	public static function filter($string){
-		return preg_replace('/[^a-z0-9\.\_\-]/i','',$string);
-	}
-	//将字符串转换为时间戳
-	public static function toTime($str){
-	    $s=preg_replace('#[^0-9\s:\-]#','',str_replace(['年','月','日'],['-','-',' '],$str));
-	    return strtotime($s);
-	}
-	//获取数字型id，逗号分隔
-	public static function getIds($str){
-		return preg_replace('/[^0-9,]/','',$str);
+
+	//获取数字型id，返回逗号分隔的字符串
+	public static function getIds($data){
+		$a = is_array($data)?$data: explode(',',$data);
+		$arr = [];
+		foreach($a as $v){
+			if(is_numeric($v) && !in_array($v,$arr)){
+				$arr[]=$v;
+			}
+		}
+		//防止sql错误，id不能为0
+		return !empty($arr)? implode(',',$arr):'0';
 	}
 }
-//echo $a= cstring::cutByStr("aa<p><p><p>1</p></p><p>23</p>45</p>#####<p>$$$$</p>",'<p>','</p>');
-//echo $a;
-//echo cstring::html('设置向导');

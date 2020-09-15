@@ -84,7 +84,7 @@
 
 	//监听提交
 	form.on('submit(saveBtn)', function (data) {
-		cz.load("?c=app1_user&a=insert",data.field,function (ret){
+		$.post("?c=app1_user&a=insert",data.field,function (ret){
 			 if(ret.code>0){
 				 layer.msg('增加成功',function(){parent.location.reload();});
 			 } else {

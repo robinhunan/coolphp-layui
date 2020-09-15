@@ -30,7 +30,7 @@
 
 	//监听提交
 	form.on('submit(saveBtn)', function (data) {
-		cz.load("?c=__table__&a=update&id=<?=$id?>",data.field,function (ret){
+		$.post("?c=__table__&a=update&id=<?=$id?>",data.field,function (ret){
 			 if(ret.code>0){
 				 layer.msg('修改成功',function(){parent.location.reload();});
 			 } else {

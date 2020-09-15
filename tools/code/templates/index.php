@@ -107,7 +107,7 @@
 			  ids.push(data[i]['id']);
 		   }
 			layer.confirm('真的删除行么', function (index) {
-				cz.load('?c=__table__&a=delete',{"id":ids.join(",")},function(ret){
+				$.post('?c=__table__&a=delete',{"id":ids.join(",")},function(ret){
 					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
@@ -136,7 +136,7 @@
 			return false;
 		} else if (obj.event === 'delete') {
 			layer.confirm('真的删除行么', function (index) {
-				cz.load('?c=__table__&a=delete',data,function(ret){
+				$.post('?c=__table__&a=delete',data,function(ret){
 					table.reload('tbl',{});
 					layer.msg('删除成功');
 				});
