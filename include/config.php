@@ -1,13 +1,13 @@
 <?php
 /**
 * @author yubing.zhu
-* 系统配置文件
+* 系统基础
 */
 
 /**
  * 定义系统根目录,请不要在这里加自定义函数
  */
-!defined('SYS_PATH') && define('SYS_PATH',realpath(dirname(__FILE__).'/../').'/');
+!defined('SYS_PATH') && define('SYS_PATH',__DIR__.'/../');
 include(SYS_PATH.'include/pool.php');
 include(SYS_PATH.'vendor/autoload.php');
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
@@ -19,9 +19,17 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 spl_autoload_register(function($class){
 	$fn = SYS_PATH. 'include/'. str_replace('_','/',$class).'.php';
 	if(is_file($fn)){
-		include($fn);
+		include_once($fn);
 	}
-});
+})
+//实例化include目录下对象
+function i($class){
+	$fn = SYS_PATH. 'include/'. str_replace('_','/',$class).'.php';
+	if(is_file($fn)){
+		include_once($fn);
+		return new $class;
+	}
+}
 define('CDN','../static');//静态cdn
 /**
  * 配置参数监护器
