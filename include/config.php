@@ -21,7 +21,7 @@ spl_autoload_register(function($class){
 	if(is_file($fn)){
 		include_once($fn);
 	}
-})
+});
 //实例化include目录下对象
 function i($class){
 	$fn = SYS_PATH. 'include/'. str_replace('_','/',$class).'.php';
